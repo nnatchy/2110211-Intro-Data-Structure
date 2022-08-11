@@ -1,33 +1,31 @@
 #include<iostream>
-#include<string>
-#include<array>
 
 using namespace std;
 
 int main() {
-    string startTime = "";
-    int delay;
-    int timeLeft;
-    int plusHour;
+    int hour, minute, delay;
 
-    getline(cin, startTime);
+    cin >> hour >> minute;
     cin >> delay;
 
-    string hours = startTime.string::substr(0,2);
-    string minutes = startTime.string::substr(3,2);
-
-    // cout << hours << minutes << endl;
-
-    if () {
-        int hour = hours[1];
-    }
-
-    if (delay >= 60) {
-        timeLeft = delay % 60;
-        plusHour = int(delay / 60);
+    if (minute + delay >= 60) {
+        hour += (delay + minute) / 60;
+        minute = (minute + delay) % 60;
     } else {
-        timeLeft = delay;
+        minute += delay;
+    }
+    
+    if (hour >= 24) {
+        hour %= 24;
     }
 
-
+    if (hour < 10 && minute < 10) {
+        cout << "0" << hour << " " << "0" << minute << endl;
+    } else if (minute < 10) {
+        cout << hour << " " << "0" << minute << endl;
+    } else if (hour < 10) {
+        cout << "0" << hour << " " << minute << endl;
+    } else {
+        cout << hour << " " << minute << endl;
+    }
 }
