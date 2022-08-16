@@ -4,11 +4,17 @@ using namespace std;
 void remove_even(vector<int> &v,int a,int b) {
     //write your code only in this function
 
-    for (int i = b; i >= a; i--) {
-        if (i % 2 == 0) {
-            auto it = v.begin() + i;
-            v.erase(it);
-        }  
+    // TODO First solution
+    // for (int i = b; i >= a; i--) {
+    //     if (i % 2 == 0) {
+    //         auto it = v.begin() + i;
+    //         v.erase(it);
+    //     }  
+    // }
+
+    // TODO Second solution
+    for (auto it = v.begin() + b - (b % 2); it >= v.begin() + a + (a % 2); it -= 2) {
+        v.erase(it);
     }
     
 
