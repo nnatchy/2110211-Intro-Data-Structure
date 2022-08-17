@@ -9,6 +9,7 @@ void reverse(vector<int> &v,int a,int b) {
         v[ind] = *it;
         ind++;
     }
+    
 }
 int main() {
     //read input
