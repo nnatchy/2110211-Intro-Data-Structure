@@ -6,37 +6,25 @@ using namespace std;
 
 int main()
 {
-    int size;
-    string name;
-    map<string, int> m;
-    map<string, int>::iterator it;
+    int size, max;
+    string name, maxName;
+    map<string,int> m;
     cin >> size;
-    for (int i = 0; i < size; i++)
-    {
+    max = 0;
+    for (int i = 0; i < size; i++) {
         cin >> name;
-        if ((it = m.find(name)) != m.end())
-        {
+        if (m.find(name) != m.end()) {
             m[name]++;
-        }
-        else
-        {
+        } else {
             m[name] = 1;
         }
-    }
-
-    int max = m.begin()->second;
-    for (auto it = m.begin(); it != m.end(); it++)
-    {
-        if (it->second > max)
-        {
-            max = it->second;
-        }
+        if (m[name] > max) max = m[name];
     }
 
     for (auto it = m.end(); it != m.begin(); it--) {
-            if (it->second == max) {
-                cout << it->first << " " << it->second;
-                break;
+        if (it->second == max){
+            cout << it->first << " " << it->second;
+            break;
         }
     }
 }
