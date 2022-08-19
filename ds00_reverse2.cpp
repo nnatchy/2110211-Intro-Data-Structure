@@ -4,13 +4,9 @@ using namespace std;
 void reverse(vector<int> &v, vector<int>::iterator a, vector<int>::iterator b)
 {
     // write your code only in this function
-    vector<int> temp = v;
-    
-    for (auto it = a; it < ; it++) {
-        
-    }
-
-    
+    for (auto it = a; it < a + (b - a) / 2; it++) {
+        swap(*it, *(a + (b - it - 1)));
+    }  
 }
 int main()
 {
