@@ -33,6 +33,8 @@
 #include <iostream>
 #include <set>
 
+using namespace std;
+
 int main() {
     int size1, size2, inp;
     set<int> s1, s2;
