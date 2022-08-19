@@ -1,5 +1,5 @@
 #include <iostream>
-#include <set>
+#include <vector>
 #include <algorithm>
 
 using namespace std;
@@ -7,19 +7,20 @@ using namespace std;
 int main() {
     int numberSize, targetSize, inp, target;
     bool found;
-    set<int> s;
+    vector<int> v;
+    int ind = 0;
     cin >> numberSize >> targetSize;
     for (int i = 0; i < numberSize; i++) {
         cin >> inp;
-        s.insert(inp);
+        v.push_back(inp);
     }
     
     for (int i = 0; i < targetSize; i++) {
         cin >> target;
         found = false;
-        for (auto it = s.begin(); it != s.end(); it++) {
+        for (vector<int>::iterator it = v.begin(); it != v.end(); it++) {
             int result = target - *it;
-            if (s.find(result) != s.end() && result != *it) {
+            if (find(v.begin(), v.end(), result) != v.end() && it != v.begin() + ind) {
                 found = true;
                 break;
             }
@@ -30,5 +31,8 @@ int main() {
             continue;
         }
         cout << "YES" << endl;
+        ind++;
     }
+
+    return 0;
 }
