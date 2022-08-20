@@ -25,8 +25,8 @@ int main()
         check = m.size();
     }
     
-    v.reserve(m.size());
+    v.reserve(m.size()); // for reserving space in vector
     for (auto it = m.begin() ; it != m.end(); it++) v.push_back(it->second);
-    sort(v.begin(), v.end(), greater<>());
+    sort(v.begin(), v.end(), greater<>()); // greater<>() in sort is for sorting from large -> low
     cout << v[check - 1];
 }
