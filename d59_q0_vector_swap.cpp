@@ -17,7 +17,6 @@ void vector_swap(vector<int> &v1, vector<int> &v2, int start1, int end1, int sta
     }
 
     ind1 = start1 + end2 - start2;
-    ind2 = start2;
     // swap second vector
     for (auto it = temp1.begin() + start1; it <= temp1.begin() + end1 - 1; it++)
     {
