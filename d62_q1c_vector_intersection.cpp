@@ -40,6 +40,7 @@ int main() {
     set<int> s1, s2;
     cin >> size1 >> size2;
 
+    
     while (size1--) {
         cin >> inp;
         s1.insert(inp);
