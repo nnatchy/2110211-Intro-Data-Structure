@@ -15,11 +15,10 @@ int main() {
     while (m--) {
         cin >> inp;
         map<int,int>::iterator it = rng.lower_bound(inp);
-        if (it->first == inp) {
-            cout << "1 ";
-        } else if (it == rng.end() && inp > it->first) {
-            
+        if (it == rng.end() || (it->first > inp && it != rng.begin())) {
+            it--;
         }
+        cout << ((inp >= it->first) && (inp <= it->second)) << " ";
     }
     cout << "\n";
 }
