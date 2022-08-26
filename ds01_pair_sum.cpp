@@ -22,7 +22,7 @@ int main() {
             if (s.find(inp - *it) != s.end() && inp - *it != *it) {
                 found = true;
                 break;
-            } else if (dupe.find(inp - *it) != dupe.end() && dupe[inp - *it] == 1) {
+            } else if (inp - *it == *it && dupe.find(inp - *it) != dupe.end() && dupe[inp - *it] == 1) {
                 found = true;
                 break;
             }

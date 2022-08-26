@@ -3,6 +3,7 @@
         "iostream": "cpp",
         "vector": "cpp",
         "map": "cpp",
-        "cwchar": "cpp"
+        "cwchar": "cpp",
+        "xtree": "cpp"
     }
 }
