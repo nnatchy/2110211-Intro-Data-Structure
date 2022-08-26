@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -12,9 +13,9 @@ int main() {
         cin >> inp;
         v.push_back(inp);
     }
+    sort(v.begin(), v.end());
     while (m--) {
         cin >> inp;
-        int left = inp - k;
-        int right = inp + k;
+        cout << upper_bound(v.begin(), v.end(), inp + k) - lower_bound(v.begin(), v.end(), inp - k) << " ";
     }
 }
