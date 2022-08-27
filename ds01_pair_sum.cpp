@@ -1,38 +1,33 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <map>
+#include <set>
 
 using namespace std;
 
 int main() {
-    int numberSize, targetSize, inp, target;
-    bool found;
-    vector<int> v;
-    int ind = 0;
-    cin >> numberSize >> targetSize;
-    for (int i = 0; i < numberSize; i++) {
+    //std::ios_base::sync_with_stdio(false); std::cin.tie(0); uncomment this for speed
+    int n, m, inp;
+    map<int,int> dupe;
+    set<int> s;
+    cin >> n >> m;
+    while (n--) {
         cin >> inp;
-        v.push_back(inp);
+        if (s.find(inp) != s.end()) dupe[inp] = 1;
+        s.insert(inp);
     }
-    
-    for (int i = 0; i < targetSize; i++) {
-        cin >> target;
-        found = false;
-        for (vector<int>::iterator it = v.begin(); it != v.end(); it++) {
-            int result = target - *it;
-            if (find(v.begin(), v.end(), result) != v.end() && it != v.begin() + ind) {
+    while (m--) {
+        cin >> inp;
+        bool found = false;
+        for (auto it = s.begin(); it != s.end(); it++) {
+            if (s.find(inp - *it) != s.end() && inp - *it != *it) {
+                found = true;
+                break;
+            } else if (inp - *it == *it && dupe.find(inp - *it) != dupe.end() && dupe[inp - *it] == 1) {
                 found = true;
                 break;
             }
         }
-        
-        if (!found) {
-            cout << "NO" << endl;
-            continue;
-        }
-        cout << "YES" << endl;
-        ind++;
+        if (!found) cout << "NO" << "\n";
+        else cout << "YES" << "\n";
     }
-
-    return 0;
 }
