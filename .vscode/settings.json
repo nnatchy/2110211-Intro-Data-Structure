@@ -4,6 +4,7 @@
         "vector": "cpp",
         "map": "cpp",
         "cwchar": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "algorithm": "cpp"
     }
 }
