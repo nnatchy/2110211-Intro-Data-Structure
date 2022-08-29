@@ -7,36 +7,20 @@
 using namespace std;
 
 int eval_postfix(vector<pair<int, int> > v) {
-  // WRITE YOUR CODE HERE
-  // DON"T FORGET TO RETURN THE RESULT
   stack<int> s;
   int result;
   for (auto &x : v) {
-    if (x.first == 1)
-      s.push(x.second);
+    if (x.first == 1) s.push(x.second);
     else {
       int op = x.second;
-      int a = s.top();
-      s.pop();
-      int b = s.top();
-      s.pop();
-      switch (op) {
-      case 0:
-        result = a + b;
-        break;
-      case 1:
-        result = b - a;
-        break;
-      case 2:
-        result = a * b;
-        break;
-      case 3:
-        result = b / a;
-        break;
-      }
+      int sec = s.top(); s.pop();
+      int first = s.top(); s.pop();
+      if (op == 0) result = first + sec;
+      else if (op == 1) result = first - sec;
+      else if (op == 2) result = first * sec;
+      else if (op == 3) result = first / sec;
       s.push(result);
     }
-    
   }
   return s.top();
 }
