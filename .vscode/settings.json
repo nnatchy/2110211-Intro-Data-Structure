@@ -5,6 +5,7 @@
         "map": "cpp",
         "cwchar": "cpp",
         "xtree": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "set": "cpp"
     }
 }

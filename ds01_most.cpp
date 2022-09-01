@@ -21,7 +21,7 @@ int main()
         if (m[name] > max) max = m[name];
     }
 
-    for (auto it = m.end(); it != m.begin(); it--) {
+    for (map<string,int>::iterator it = m.end(); it != m.begin(); it--) {
         if (it->second == max){
             cout << it->first << " " << it->second;
             break;
