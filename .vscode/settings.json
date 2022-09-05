@@ -6,6 +6,7 @@
         "cwchar": "cpp",
         "xtree": "cpp",
         "algorithm": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "string": "cpp"
     }
 }

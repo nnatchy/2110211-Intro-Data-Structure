@@ -1,47 +1,24 @@
-#include <iostream>
-#include <vector>
-#include <stack>
+#include<iostream>
+#include<vector>
+#include<algorithm>
+
 using namespace std;
-void stack_concat(stack<int> &s1, stack<int> &s2) {
-    //write your code only in this function
-    stack<int> s3;
-    while (!s2.empty()) {
-        s3.push(s2.top());
-        s2.pop();
-    } while (!s1.empty()) {
-        s3.push(s1.top());
-        s1.pop();
-    }
-    s1 = s3;
-}
+
 int main() {
- //read input
- int n,m;
- int c;
- cin >> n >> m;
- stack<int> s1,s2;
- for (int i = 0;i < n;i++) {
- cin >> c;
- s1.push(c);
- }
- for (int i = 0;i < m;i++) {
- cin >> c;
- s2.push(c);
- }
- //call the function
- stack_concat(s1,s2);
- //display content of the stack
- cout << "S1 has " << s1.size() << endl;
- while (!s1.empty()) {
- cout << s1.top() << " ";
- s1.pop();
- }
- cout << endl;
- //display content of the stack
- cout << "S2 has " << s2.size() << endl;
- while (!s2.empty()) {
- cout << s2.top() << " ";
- s2.pop();
- }
- cout << endl;
+    std::ios_base::sync_with_stdio(false); std::cin.tie(0);
+    int n, w, inp;
+    vector<int> v;
+    cin >> n >> w;
+    for (int i = 0; i < n; i++) {
+        cin >> inp;
+        v.push_back(inp);
+    }
+    for (int i = 0; i < n - w; i++) {
+        vector<int> moveMed(v.begin() + i, v.begin() + i + w + 1);
+        if (v.begin() + i + w + 1 != v.end()) {
+            sort(moveMed.begin(), moveMed.end());
+            cout << moveMed[moveMed.size() / 2] << " ";
+        }
+    }
+    cout << "\n";
 }
