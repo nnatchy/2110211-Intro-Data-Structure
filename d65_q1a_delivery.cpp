@@ -1,47 +1,60 @@
 #include<iostream>
+#include<queue>
 #include<vector>
-#include<map>
 #include<algorithm>
+
 using namespace std;
+
 int main() {
-    int n, m, inp;
-    vector<int> target, fin;
-    map<vector<int>,int> m;
-    vector<int> temp;
-    for (int i = 0; i < m; i++) {
+    int n, m, type, inp;
+    vector<int> target;
+    queue<int> ord1, ord2;
+    cin >> n >> m;
+    while (m--) {
         cin >> inp;
         target.push_back(inp);
     }
-    int priceCheck = 0;
+    int sumPrice = 0;
+    vector<int> fin;
+    vector<int> totalPrice;
     while (n--) {
-        int type, a, b;
+        int a, b;
+        int finPrice;
         cin >> type;
         if (type == 1) {
             cin >> a >> b;
-            m[b] = a;
-            priceCheck += b;
-            temp.push_back(priceCheck);
+            if (a == 1) ord1.push(b);
+            else if (a == 2) ord2.push(b);
+            
         } else if (type == 2) {
-            //int price = m.begin()->first;
-            int count = 0;
-            for (int i = 0; i < target.size(); i++) {
-                auto it = lower_bound(temp.begin(), temp.end(), target[i]);
-                if (it != temp.end()){
-                        count = count + (it - temp.begin());
-                        if (count == 0) {
-                            continue;
-                        } else {
-                            break;
-                        }
-                } else {
-                    count = -1;
-
-                }
+            if (ord1.empty()) {
+                finPrice = ord2.front();
+                ord2.pop();
             }
-            fin.push_back(count);
+            else if (ord2.empty()) {
+                finPrice = ord1.front();
+                ord1.pop();
+            }
+            else if (ord1.front() > ord2.front()) {
+                finPrice = ord2.front();
+                ord2.pop();
+            } else if (ord1.front() <= ord2.front()){
+                finPrice = ord1.front();
+                ord1.pop();
+            }
+            sumPrice += finPrice;
+            //printf("This is sumprice %d \n" ,sumPrice);
+            totalPrice.push_back(sumPrice);
         }
     }
-    for (int i = 0; i < m; i++) {
-        cout << fin[i] << " ";
+    for (int i = 0; i < target.size(); i++) {
+        auto it = lower_bound(totalPrice.begin(), totalPrice.end(), target[i]);
+        if (it == totalPrice.end()) {
+            fin.push_back(-1);
+        } else {
+            fin.push_back(it - totalPrice.begin() + 1);
+        }
     }
+    for (auto x : fin) cout << x << " ";
+    cout << "\n";
 }
