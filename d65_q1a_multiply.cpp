@@ -2,25 +2,30 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-void member_multiply(vector<int> &v, vector<pair<vector<int>::iterator,int>> &multiply) {
+void member_multiply(vector<int> &v, vector<pair<vector<int>::iterator,int> > &multiply) {
     //write your code here
-    vector<int> tmp = v;
-    //pair that store iterator as first and int as second
-    sort(multiply.begin(), multiply.end(), greater<>());
-    for (auto it = multiply.begin(); it != multiply.end(); it++) {
-        //if (find(v.begin(), v.end(), (*it).first) != v.end())
-        int ind = (*it).first - v.begin();
-        int val = v[ind];
-        tmp.insert(find(tmp.begin(), tmp.end(), val),(*it).second, val);
+    vector<int> tmp;
+    int x = 0;
+    sort(multiply.begin(), multiply.end());
+    for (int i = 0; i < v.size(); i++) {
+        if (i == multiply[x].first - v.begin()) {
+            for (int j = 0; j < multiply[x].second + 1; j++) {
+                tmp.push_back(v[i]);
+            }
+            x++;
+        } else {
+            tmp.push_back(v[i]);
+        }
     }
     v = tmp;
+    
 }
 int main() {
  ios_base::sync_with_stdio(false);cin.tie(0);
  int n,m;
  cin >> n >> m;
  vector<int> v(n);
- vector<pair<vector<int>::iterator,int>> multiply(m);
+ vector<pair<vector<int>::iterator,int> > multiply(m);
  for (int i = 0;i < n;i++) cin >> v[i];
  for (int i = 0;i < m;i++) {
  int a,b;
