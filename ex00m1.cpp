@@ -1,31 +1,28 @@
-#include<bits/stdc++.h>
+#include<iostream>
+#include<queue>
+
 #define endl "\n"
+#define pii pair<int,int>
 
 using namespace std;
 
 int main() {
-    ios_base::sync_with_stdio(false); cin.tie(0);
-    int n, m, inp;
-    vector<int> v, fin;
+    priority_queue<pii, vector<pii>, greater<pii> > pq;
+    vector<int> v;
+    int n, m;
     cin >> n >> m;
-
-    int remain = m - n - 1;
     for (int i = 0; i < n; i++) {
+        int inp;
         cin >> inp;
-        v.push_back(inp);
-        fin.push_back(0);
+        pq.push(make_pair(0,inp));
     }
-    sort(v.begin(), v.end());
-    if (fin.size() < m) {
-        for (int i = 0; i < n; i++) {
-            int sum = 0;
-            for (int j = 0; j < remain; j++) {
-                sum += v[i];
-                fin.push_back(sum); 
-            }
-        }
+
+    while (m--) {
+        int first = pq.top().first;
+        int sec = pq.top().second;
+        cout << first << endl;
+        pq.pop();
+        pq.push(make_pair(first + sec, sec));
     }
-    
-    sort(fin.begin(), fin.end());
-    for (int i = 0; i < m; i++) cout << fin[i] << endl;
+
 }
