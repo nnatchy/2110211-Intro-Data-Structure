@@ -2,5 +2,11 @@
 #include<vector>
 using namespace std;
 int main() {
-    cout << "a" > 2;
+    vector<int> v;
+vector<int>::iterator it;
+v.push_back(10);
+v.push_back(20);
+it = v.begin()+1;
+v.push_back(30);
+cout << *it;
 }
