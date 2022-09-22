@@ -4,24 +4,24 @@
 template <typename T>
 void CP::vector<T>::rotate(iterator first, iterator last, size_t k) {
   //write your code here
+  
   int firstPos = first - begin();
   int lastPos = last - begin();
-  T* arr = new T[mSize];
-  int size = mSize;
-  int cur = firstPos + k;
-  for (int i = 0; i < firstPos; i++) {
-    arr[i] = mData[i];
+  T* arr = new T[lastPos - firstPos];
+  int x = 0;
+  for (int i = firstPos + k; i < lastPos; i++) {
+    arr[x++] = mData[i];
   }
-  for (int i = firstPos; i < lastPos - firstPos - k; i++) {
-    arr[i] = mData[cur++];
+  for (int i = firstPos; i < firstPos + k; i++) {
+    arr[x++] = mData[i];
   }
-  for (int i = firstPos; i < mSize; i++) {
-    arr[i] = mData[i - lastPos];
+  x = 0;
+  for (int i = firstPos; i < lastPos; i++) {
+    mData[i] = arr[x++];
   }
-  delete[] mData;
-  mData = arr;
-  mSize = size;
-  mCap = size;
+  delete[] arr;
+  mCap = mSize;
 }
 
 #endif
+
