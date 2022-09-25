@@ -4,10 +4,22 @@
 namespace CP {
     template<typename T>
     void stack<T>::appendStack(stack<T> s) {
-        while (!s.empty()) {
-            push(s.top());
-            s.pop();
+        int sSize = s.size();
+        T* arr = new T[mSize + sSize];
+        int newSize = mSize + sSize;
+        int i = 0;
+        while (i < sSize) {
+            arr[i] = s.mData[i];
+            i++;
         }
+        while (i < newSize) {
+            arr[i] = mData[i - sSize];
+            i++;
+        }
+        delete[] mData;
+        mData = arr;
+        mSize = newSize;
+        mCap = newSize;
     }
 
     template<typename T>

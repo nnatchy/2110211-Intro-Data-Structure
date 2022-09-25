@@ -8,8 +8,8 @@ T CP::queue<T>::operator[](int idx) {
   //
   // you need to return something
   // return 
-  int finInd = (idx + mSize) % mCap;
-  return mData[finInd + mFront];
+  if (idx >= 0) return mData[(idx + mFront) % mCap];
+  else return mData[(idx + mFront + mSize) % mCap];
 }
 
 #endif

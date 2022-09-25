@@ -11,14 +11,13 @@
 template <typename T>
 std::vector< CP::queue<T> > CP::queue<T>::split_queue(int k) {
     std::vector<CP::queue<T> > qs(k);
-    // code here
-    //
-    //
-    //
-    //
-    //
-    //
-    //
+    int i = 0;
+    while (!empty()) {
+        qs[i].push(front());
+        pop();
+        i++;
+        if (i == k) i = 0;
+    }
     return qs;
 }
 
