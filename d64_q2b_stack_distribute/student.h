@@ -6,14 +6,18 @@ std::vector<std::vector<T> > CP::stack<T>::distribute(size_t k) const {
   //write your code here
   std::vector<std::vector<T> > v;
   int i = 0;
-  for (int i = 0; i < k; i++) {
+  int size = mSize;
+  int left = mSize % k;
+  int range = left == 0 ? mSize / k : mSize / k + 1;
+  for (int j = 0; j < k; j++) {
     std::vector<T> tmp;
-    int l = k;
-
-    while (l--) {
-      tmp.push_back(mData[i++]);
+    for (int l = 0; l < range; l++) {
+      tmp.push_back(mData[mSize - 1 - i]);
+      i++;
     }
     v.push_back(tmp);
+    left--;
+    if (left <= 0) range = mSize / k; 
   }
   return v;
 }
