@@ -7,15 +7,6 @@
 
 using namespace std;
 
-void printVector(vector<map<int,int> > &v) {
-    for (int i = 0; i < v.size(); i++) {
-        for (auto it = v[i].begin(); it != v[i].end(); it++) {
-            cout << "This is i : " << i << " ";
-            cout << it->first << " " << it->second << endl;
-        }
-    }
-}
-
 int main() {
     ios::sync_with_stdio(false); cin.tie(0);
     int n, m, a;
@@ -35,26 +26,26 @@ int main() {
         cin >> type;
         if (type == 'B') {
             cin >> U >> I >> P;
-            I--;
-            vm[I][U] = P;
+            vm[I-1][U-1] = P;
         } else if (type == 'W') {
             cin >> U >> I;
-            I--;
-            vm[I].erase(U);
+            auto it = vm[I-1].find(U-1);
+            if (it != vm[I-1].end()) {
+                vm[I-1].erase(it);
+            }
         }
     }
 
-    //printVector(vm);
-
     vector<vector<int> > fin(m);
-    priority_queue<pair<int,int> > pq;
-    for (int i = 0; i < m; i++) {
+    
+    for (int i = 0; i < n; i++) {
+        priority_queue<pair<int,int> > pq;
         for (auto it = vm[i].begin(); it != vm[i].end(); it++) {
             pq.push(make_pair(it->second,it->first));
         }
         while (!pq.empty() && items[i] > 0) {
-            int winner = pq.top().second - 1;
-            fin[winner].push_back(i+1);
+            int winner = pq.top().second;
+            fin[winner].push_back(i);
             pq.pop();
             items[i]--;
         }
@@ -62,7 +53,7 @@ int main() {
 
     for (auto &user : fin) {
         if (user.size() > 0) {
-            for (int x : user) cout << x << " ";
+            for (auto& x : user) cout << x + 1 << " ";
         } else {
             cout << "NONE";
         }
