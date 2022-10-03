@@ -21,6 +21,8 @@ void CP::vector<T>::rotate(iterator first, iterator last, size_t k) {
   }
   delete[] arr;
   mCap = mSize;
+
+  // std::rotate(first, first + k, last); <- another sol (don't forget to include algorithm)
 }
 
 #endif
