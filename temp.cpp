@@ -1,3 +1,4 @@
+
 // rotate algorithm example
 #include <iostream>     // std::cout
 #include <algorithm>    // std::rotate
@@ -18,4 +19,3 @@ int main () {
   std::cout << '\n';
 
   return 0;
-}
