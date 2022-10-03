@@ -8,33 +8,24 @@ int main() {
     for (int i = 0; i < n; i++) {
         int mFront, mSize, mCap, last, correction;
         cin >> mFront >> mSize >> mCap >> last >> correction;
-        if (correction == 0) {
-            if (mSize > mCap) cout << "WRONG" << endl;
-            else if (last > mCap) cout << "WRONG" << endl;
-            else cout << "OK\n";
-        } else if (correction >= 1 && correction <= 4) {
-            int corVal = 0;
-            if (correction == 1) {
-                if (mFront + mSize != last) {
-                    corVal = last - mSize;
-                }
+        if ((mFront + mSize) % mCap != last || mFront >= mCap || last > mCap || mSize > mCap) {
+            int corVal;
+            if (correction == 0) {
+                cout << "WRONG" << endl;
+                continue;
+            } else if (correction == 1) {
+                corVal = (last - mSize) % mCap;
             } else if (correction == 2) {
-                if (mSize + mFront != last) {
-                    corVal = last;
-                }
+                corVal = (last - mFront) % mCap;
             } else if (correction == 3) {
-                if (last >= mSize + mFront) {
-                    corVal = last + 1;
-                } else if (mSize >= last + mFront) {
-                    corVal = mSize;
-                }
+                if (last >= mSize + mFront) corVal = last + 1;
+                else if (mSize >= last + mFront) corVal = mFront + mSize - last;
             } else if (correction == 4) {
-                if (mSize + mFront != last) {
-                    corVal = mSize + mFront;
-                }
+                corVal = (mSize + mFront) % mCap;
             }
-            if (corVal == 0) cout << "OK\n";
-            else cout << "WRONG " << corVal << endl; 
+            cout << "WRONG " << corVal << endl;
+        } else {
+            cout << "OK" << endl;
         }
     }
 }
