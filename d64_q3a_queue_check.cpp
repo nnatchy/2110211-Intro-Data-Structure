@@ -8,20 +8,21 @@ int main() {
     for (int i = 0; i < n; i++) {
         int mFront, mSize, mCap, last, correction;
         cin >> mFront >> mSize >> mCap >> last >> correction;
-        if ((mFront + mSize) % mCap != last || mFront >= mCap || last > mCap || mSize > mCap) {
+        if ((mFront + mSize) % mCap != last || mFront >= mCap || last > mCap || mSize >= mCap || mFront + mSize >= mCap) {
             int corVal;
             if (correction == 0) {
                 cout << "WRONG" << endl;
                 continue;
             } else if (correction == 1) {
-                corVal = (last - mSize) % mCap;
+                corVal = (last - mSize + mCap) % mCap;
             } else if (correction == 2) {
-                corVal = (last - mFront) % mCap;
+                corVal = (last - mFront + mCap) % mCap;
             } else if (correction == 3) {
                 if (last >= mSize + mFront) corVal = last + 1;
                 else if (mSize >= last + mFront) corVal = mFront + mSize - last;
             } else if (correction == 4) {
-                corVal = (mSize + mFront) % mCap;
+                if (mSize == mCap) corVal = mFront;
+                else corVal = (mSize + mFront) % mCap;
             }
             cout << "WRONG " << corVal << endl;
         } else {
