@@ -1,11 +1,12 @@
 #include<iostream>
-#include<vector>
-void reverse(iterator it1, iterator it2) {
-  int n = it2 – it1;
-  int p = it1 – begin();
-  for (int i = 0; i < n; i++) {
-  insert(it2,*it1);
-  erase(it1);
-  it1 = mData + p;
-  it2--;
+
+
+using namespace std;
+int main() {
+    less<int> x;
+    greater<int> y;
+    int a = 10;
+    int b = 3;
+    cout << x(a,b) << endl; // a < b ?
+    cout << y(a,b) << endl; // a > b ?
 }
