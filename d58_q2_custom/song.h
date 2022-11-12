@@ -28,15 +28,13 @@ class Song {
 //  you have to write something below this line 
 //  you *MIGHT* have to change the declaration of pq1 and pq2
 
-// pq 1 : Artist, Song name, Total sell (low -> high)
-// pq 2 : Total sell (high -> low) if equals, sort name from low -> high
-
 class COMP1 {
 public:
   bool operator()(const Song& lhs, const Song& rhs) const {
     if (lhs.artist > rhs.artist) return true;
     if (lhs.artist == rhs.artist && lhs.title > rhs.title) return true;
-    return lhs.awr;
+    if (lhs.artist == rhs.artist && lhs.title == rhs.title && lhs.count > rhs.count) return true;
+    return false;
   }
 };
 
@@ -45,7 +43,7 @@ class COMP2 {
     bool operator()(const Song& lhs, const Song& rhs) const {
       if (lhs.count < rhs.count) return true;
       if (lhs.count == rhs.count && lhs.artist > rhs.artist) return true;
-      if (lhs.count == rhs.count && lhs.artist == rhs.artist && lhs.title > rhs.artist) return true;
+      if (lhs.count == rhs.count && lhs.artist == rhs.artist && lhs.title > rhs.title) return true;
       return false;
     }
 };
