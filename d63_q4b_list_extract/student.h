@@ -7,19 +7,22 @@ template <typename T>
 void CP::list<T>::extract(const T& value,iterator a, iterator b,CP::list<T>& output) {
   //write your code here
   auto it = a;
-  while (it != b) {
+  for (auto it = a; it != b;) {
     if (*it == value) {
-      auto tmp(it.ptr->next);
-      it.ptr->next->prev = it.ptr->prev;
-      it.ptr->prev->next = it.ptr->next;
+      node* tmp = it.ptr;
+      auto it2 = it;
+      it2++;
+      tmp->next->prev = tmp->prev;
+      tmp->prev->next = tmp->next;
       delete it.ptr;
       mSize--;
-      it = tmp;
+      it = it2;
 
-      node *insert = new node(value, output.mHeader, output.mHeader->next);
-      output.mHeader->next->prev = insert;
-      output.mHeader->next = insert;
+      node* insertNode = new node(value, output.mHeader, output.mHeader->next);
+      output.mHeader->next->prev = insertNode;
+      output.mHeader->next = insertNode;
       output.mSize++;
+      
     } else {
       it++;
     }

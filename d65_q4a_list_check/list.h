@@ -1,15 +1,11 @@
-/*
-TASK: ds55b_quiz1_photolist
-*/
+#ifndef _CP_LIST_INCLUDED_
+#define _CP_LIST_INCLUDED_
 
-#include <stdio.h>
-#include <stdlib.h>
+#include <stdexcept>
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+//#pragma once
 
-namespace CP {
+namespace CP { 
 
 template <typename T>
 class list
@@ -39,13 +35,13 @@ class list
 
         list_iterator(node *a) : ptr(a) { }
 
-        list_iterator& operator++() {
-          ptr = ptr->next;
+        list_iterator& operator++() { 
+          ptr = ptr->next; 
           return (*this);
         }
 
-        list_iterator& operator--() {
-          ptr = ptr->prev;
+        list_iterator& operator--() { 
+          ptr = ptr->prev; 
           return (*this);
         }
 
@@ -75,14 +71,18 @@ class list
     size_t mSize;
 
 
+    // SPECIAL FOR CHECK UP ONLY
+    std::vector<node*> remember;
+
+
   public:
     //-------------- constructor & copy operator ----------
 
     // copy constructor
-    list(list<T>& a) :
+    list(const list<T>& a ) :
       mHeader( new node() ), mSize( 0 ) {
-      for (iterator it = a.begin();it != a.end();it++) {
-        push_back(*it);
+      for (auto &x : *this) {
+        push_back(x);
       }
     }
 
@@ -101,6 +101,13 @@ class list
     }
 
     ~list() {
+      if (remember.size() > 0) {
+        for (auto &x : remember)
+          delete x;
+        mHeader->prev = mHeader;
+        mHeader->next = mHeader;
+        mSize = 0;
+      }
       clear();
       delete mHeader;
     }
@@ -166,9 +173,29 @@ class list
       while (mSize > 0) erase(begin());
     }
 
+    bool check();
+
+    void messup() {
+      node* n = mHeader;
+      //save everything in "remember" for special destruction
+      remember.resize(mSize);
+      for (int i = 0;i < mSize;i++) {
+        n = n->next;
+        remember[i] = n;
+      }
+
+      //DO NOT EDIT ANYTHING ABOVE THIS LINE
+      //ONLY EDIT BELOW THIS LINE
+
+      //sample case of mess up, you can write any other case
+      mHeader->next->next = mHeader->next->next->next->next->next;
+
+    }
+
     void print() {
-      std::cout << " Header address = " << (mHeader) << std::endl;
-      int i;
+      std::cout << " Size = " << mSize << std::endl;
+      std::cout << " Header address = " << (mHeader) << " (prev = " << mHeader->prev << " next = " << mHeader->next << ")" << std::endl;
+      int i = 0;
       iterator before;
       for (iterator it = begin();it!=end();before = it, it++,i++) {
         std::cout << "Node " << i << ": " << *it;
@@ -176,88 +203,10 @@ class list
       }
     }
 
-    void check() {
-      node* p;
-      int n;
-      p = mHeader;
-      n = mSize+1;
-      while (n--) p = p->next;
-      if (p != mHeader) {
-        std::cout << "next POINTER ERROR" << std::endl;
-      }
-      p = mHeader;
-      n = mSize+1;
-      while (n--) p = p->prev;
-      if (p != mHeader) {
-        std::cout << "prev POINTER ERROR" << std::endl;
-      }
-    }
-
-    void reorder(int pos,std::vector<int> selected) {
-      //write your code only here
-      auto beg = begin();
-      for (int i = 0; i < pos; i++) {
-        beg++;
-      }
-      int shift = 0;
-      for (int i = 0; i < selected.size(); i++) {
-        int till = selected[i];
-        //if (till < pos) till -= shift;
-        auto insertVal = begin(); 
-        for (int j = 0; j < till; j++) {
-          insertVal++;
-        }
-        insert(beg, *insertVal);
-        erase(insertVal);
-        shift++;
-      }
-    }
-
 };
 
 }
 
-//----------------------------------------------
-int main() {
-  int n;
-  std::cin >> n;
+#endif
 
-  CP::list<std::string> l;
-  int pos;
-  std::vector<int> selected;
-
-  while(n--) {
-    std::string st;
-    std::cin >> st;
-    l.push_back(st);
-  }
-
-  std::cin >> n;
-  while(n--) {
-    int a;
-    std::cin >> a;
-    selected.push_back(a);
-  }
-  std::sort(selected.begin(),selected.end());
-
-  //call student function
-  std::cin >> pos;
-  l.reorder(pos,selected);
-
-  //check result
-  l.check();
-  auto it = l.begin();
-  while (it != l.end()) {
-    std::cout << *it << " ";
-    it++;
-  }
-  std::cout << std::endl;
-  it = l.end(); it--;
-  while (it != l.end()) {
-    std::cout << *it << " ";
-    it--;
-  }
-  std::cout << std::endl;
-
-}
 
