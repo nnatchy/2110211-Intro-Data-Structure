@@ -1,42 +1,42 @@
 #include<iostream>
+#include<set>
 #include<map>
 #include<vector>
 #include<algorithm>
 
 using namespace std;
 
+#define ll long long
+
 int main() {
     std::ios_base::sync_with_stdio(false); std::cin.tie(0);
-    int n, m;
+    ll n, m;
     cin >> n >> m;
-    vector<int> v;
-    for (int i = 0; i < n; i++) {
-        int pow;
-        cin >> pow;
-        v.push_back(pow);
+    set<pair<ll, ll> > teamPower;
+    map<ll, ll> ml;
+    for (int i = 0; i < m; i++) {
+        teamPower.insert(make_pair(1, i));
+        ml[i] = 1;
     }
-    sort(v.begin(), v.end());
-    int x = 0;
-    int range = m;
-    bool check = false;
-    map<int,int> mii;
+    vector<ll> pow;
+    for (int i = 0; i < n; i++) {
+        ll inp;
+        cin >> inp;
+        pow.push_back(inp);
+    }
+    ll idx = 0;
     while (n--) {
-        int type;
+        ll type;
         cin >> type;
-        if (type <= range - 1 && type >= 0) {
-            if (check) {
-                mii[type] = v[x++];
-            } else {
-                if (mii.find(type) == mii.end()) {
-                mii[type] = 1;
-            } else {
-                mii[type] = v[x++];
-                check = true;
-            } 
-            }
-            
+        ll newPower = pow[idx];
+        ll oldPower = ml[type];
+        if (newPower >= oldPower) {
+            ml[type] = newPower;
+            teamPower.erase(teamPower.find(make_pair(oldPower, type)));
+            teamPower.insert(make_pair(newPower, type));
         }
-        cout << mii[type] << " ";
+        cout << (*teamPower.begin()).first << " ";
+        idx++;
     }
     cout << "\n";
 }
