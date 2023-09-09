@@ -24,5 +24,3 @@ void CP::stack<T>::mitosis(int a, int b)
 }
 
 #endif
-
-x
